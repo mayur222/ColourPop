@@ -4,7 +4,6 @@ import sys
 import os
 import imghdr
 
-
 def createImagePop(f_tmp):
 	img = cv2.imread(f_tmp)
 	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -34,7 +33,7 @@ def createImagePop(f_tmp):
 	dir_t='.'.join(f_tmp.split('.')[:-1])
 	if not os.path.isdir(dir_t):
 		os.mkdir(dir_t)
-	print('Saved color pop of',f_tmp,'in',dir_t)
+	print('Saving color pop of',f_tmp,'in',dir_t)
 	cv2.imwrite(dir_t+'/red.jpg',rCol)
 	cv2.imwrite(dir_t+'/green.jpg',gCol)
 	cv2.imwrite(dir_t+'/blue.jpg',bCol)
@@ -42,13 +41,14 @@ def createImagePop(f_tmp):
 	cv2.imwrite(dir_t+'/greenBlue.jpg',gbCol)
 	cv2.imwrite(dir_t+'/redBlue.jpg',rbCol)
 	cv2.imwrite(dir_t+'/reverse.jpg',reverse)
+	print('Saved')
 
 n = len(sys.argv)
 files=[]
 if n > 1:
 	files = sys.argv[1:]
 else:
-	file_tmp = input('Enter file name: ')
+	file_tmp = input('Enter file name(with correct path): ')
 	files.append(file_tmp)
 	
 for f in files:
