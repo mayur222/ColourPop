@@ -34,13 +34,14 @@ def createImagePop(f_tmp):
 	if not os.path.isdir(dir_t):
 		os.mkdir(dir_t)
 	print('Saving color pop of',f_tmp,'in',dir_t)
-	cv2.imwrite(dir_t+'/red.jpg',rCol)
-	cv2.imwrite(dir_t+'/green.jpg',gCol)
-	cv2.imwrite(dir_t+'/blue.jpg',bCol)
-	cv2.imwrite(dir_t+'/redGreen.jpg',rgCol)
-	cv2.imwrite(dir_t+'/greenBlue.jpg',gbCol)
-	cv2.imwrite(dir_t+'/redBlue.jpg',rbCol)
-	cv2.imwrite(dir_t+'/reverse.jpg',reverse)
+	imgName=dir_t.split('/')[-1]
+	cv2.imwrite(dir_t+'/red'+imgName+'.jpg',rCol)
+	cv2.imwrite(dir_t+'/green'+imgName+'.jpg',gCol)
+	cv2.imwrite(dir_t+'/blue'+imgName+'.jpg',bCol)
+	cv2.imwrite(dir_t+'/redGreen'+imgName+'.jpg',rgCol)
+	cv2.imwrite(dir_t+'/greenBlue'+imgName+'.jpg',gbCol)
+	cv2.imwrite(dir_t+'/redBlue'+imgName+'.jpg',rbCol)
+	cv2.imwrite(dir_t+'/reverse'+imgName+'.jpg',reverse)
 	print('Saved')
 
 n = len(sys.argv)
