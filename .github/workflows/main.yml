@@ -26,6 +26,8 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: cclauss/GitHub-Action-for-pylint@8ef4d22e119fb1cdc0f58f2e95cb1f8d8b0d55e6
         run: |
+          sudo apt-get update
           sudo apt-get install pylint python3-opencv
           sudo pip3 install fastprogress
+          pylint --version
           pylint *.py
