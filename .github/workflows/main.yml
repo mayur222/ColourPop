@@ -30,6 +30,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install python3-setuptools
-          sudo pip3 install pylint
+          sudo pip3 install pylint fast_progress
           pylint --version
           pylint *.py --verbose
