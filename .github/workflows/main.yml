@@ -32,4 +32,4 @@ jobs:
           sudo apt-get install python3-setuptools
           sudo pip3 install pylint
           pylint --version
-          pylint *.py --rcfile='.pylintrc'
+          pylint *.py --verbose
