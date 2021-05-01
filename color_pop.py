@@ -6,7 +6,6 @@ import cv2
 def create_image_pop(f_tmp):
 	img = cv2.imread(f_tmp)
 	new_col = cv2.cvtColor(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2RGB)
-	reverse = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 	r_col = new_col.copy()
 	g_col = new_col.copy()
 	b_col = new_col.copy()
