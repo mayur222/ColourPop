@@ -1,7 +1,6 @@
 import sys
 import os
 import imghdr
-from fastprogress import progress_bar
 import cv2
 
 def create_image_pop(f_tmp):
@@ -11,37 +10,23 @@ def create_image_pop(f_tmp):
 	r_col = new_col.copy()
 	g_col = new_col.copy()
 	b_col = new_col.copy()
-	rg_col = new_col.copy()
-	gb_col = new_col.copy()
-	rb_col = new_col.copy()
-	master_bar1 = progress_bar(range(img.shape[0]))
-	for i in master_bar1:
-		for j in range(img.shape[1]):
-			if img[i][j][2] > img[i][j][1] and img[i][j][2] > img[i][j][0]:
-				r_col[i][j] = img[i][j]
-			if img[i][j][1] > img[i][j][2] and img[i][j][1] > img[i][j][0]:
-				g_col[i][j] = img[i][j]
-			if img[i][j][0] > img[i][j][1] and img[i][j][0] > img[i][j][2]:
-				b_col[i][j] = img[i][j]
-			if img[i][j][2] > img[i][j][0] or img[i][j][1] > img[i][j][0]:
-				rg_col[i][j] = img[i][j]
-			if img[i][j][0] > img[i][j][2] or img[i][j][1] > img[i][j][2]:
-				gb_col[i][j] = img[i][j]
-			if img[i][j][2] > img[i][j][1] or img[i][j][0] > img[i][j][1]:
-				rb_col[i][j] = img[i][j]
+	rg_mask = img[:,:,2] > img[:,:,1]
+	rb_mask = img[:,:,2] > img[:,:,0]
+	gb_mask = img[:,:,1] > img[:,:,0]
+	r_col[rg_mask & rb_mask] = img[rg_mask & rb_mask]
+	g_col[gb_mask & ~rg_mask]= img[gb_mask & ~rg_mask]
+	b_col[~rb_mask & ~gb_mask] = img[~rb_mask & ~gb_mask]
 	dir_t = '.'.join(f_tmp.split('.')[:-1])
 	if not os.path.isdir(dir_t):
 		os.mkdir(dir_t)
 	print('Saving color pop of', f_tmp, 'in', dir_t)
 	img_name = dir_t.split('/')[-1]
-	cv2.imwrite(dir_t + '/red' + img_name + '.jpg', r_col)
-	cv2.imwrite(dir_t + '/green' + img_name + '.jpg', g_col)
-	cv2.imwrite(dir_t + '/blue' + img_name + '.jpg', b_col)
-	cv2.imwrite(dir_t + '/redGreen' + img_name + '.jpg', rg_col)
-	cv2.imwrite(dir_t + '/greenBlue' + img_name + '.jpg', gb_col)
-	cv2.imwrite(dir_t + '/redBlue' + img_name + '.jpg', rb_col)
-	cv2.imwrite(dir_t + '/reverse' + img_name + '.jpg', reverse)
-	print('Saved')
+	if cv2.imwrite(dir_t + '/red' + img_name + '.jpg', r_col):
+		print('Saved Red')
+	if cv2.imwrite(dir_t + '/green' + img_name + '.jpg', g_col):
+		print('Saved Green')
+	if cv2.imwrite(dir_t + '/blue' + img_name + '.jpg', b_col):
+		print('Saved Blue')
 
 files = []
 if len(sys.argv) > 1:
