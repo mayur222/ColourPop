@@ -42,3 +42,5 @@ for f in files:
 			print(f, 'is not image file')
 	else:
 		print(f, 'doesn\'t exists')
+		
+#test line
